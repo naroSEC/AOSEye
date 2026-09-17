@@ -9,6 +9,7 @@ from typing import Iterable
 
 from lxml import etree
 
+from .androguard_compat import configure_resource_encoding
 from .firebase import check_remote_config, discover_firebase_config
 from .manifest import (
     activities_from_manifest,
@@ -192,6 +193,7 @@ def analyze_apk(
     if not zipfile.is_zipfile(path):
         raise AnalysisError(f"유효한 ZIP/APK 형식이 아닙니다: {path}")
     try:
+        configure_resource_encoding()
         from androguard.misc import AnalyzeAPK
         from loguru import logger
 
